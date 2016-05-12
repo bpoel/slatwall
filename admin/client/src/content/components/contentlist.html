@@ -19,6 +19,9 @@
 	</div>
 	<div class="s-table-header-nav s-listing-head-margin">
 		<div class="col-xs-6 s-no-padding-left">
+			
+		</div>
+		<div class="col-xs-6 s-table-view-options s-no-padding-right pull-right">
 			<ul class="list-inline list-unstyled">
 				<!-- to implement searching-->
 				<li>
@@ -27,7 +30,7 @@
 							<div class="input-group">
 								<div class="s-input-btn">
 									<input  type="text"
-										class="form-control input-sm"
+										class="form-control input-sm general-listing-search"
 										placeholder="Search"
 										name="srch-term"
 										ng-model="swContentList.keywords"
@@ -45,6 +48,9 @@
 			</ul>
 			
 		</div>
+
+	</div>
+	
 		<sw-listing-display
 			ng-if="swContentList.collectionListingPromise && swContentList.collection"	
 			data-collection-promise="swContentList.collectionListingPromise"
