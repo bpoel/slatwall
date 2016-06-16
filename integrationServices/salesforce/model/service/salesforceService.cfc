@@ -53,45 +53,24 @@ component extends="Slatwall.model.service.HibachiService" persistent="false" acc
 	
 	// ===================== START: Logical Methods ===========================
 	
-	public any function something(){
+	public any function getAccessTokenByAuthentication(){
 		
 		var httpRequest = new http();
         httpRequest.setMethod("POST");
 		httpRequest.setPort("443");
 		httpRequest.setTimeout(45);
-		httpRequest.setUrl("");
+		httpRequest.setUrl("https://#setting('IntegrationSalesforceinstanceId')#.salesforce.com/services/oauth2/token");
 		httpRequest.setResolveurl(false);
-//		if(arguments.format == 'xml'){
-//			httpRequest.addParam(type="XML", name="name",value=trim(arguments.requestPacket));
-//			return XmlParse(REReplace(httpRequest.send().getPrefix().fileContent, "^[^<]*", "", "one"));
-//		}else{
-			httpRequest.addParam(type="header",name="Content-Type",value="application/json");
-//			httpRequest.addParam(type="body", value=trim(arguments.requestPacket));
-//			return deserializeJson(httpRequest.send().getPrefix().fileContent);
-//		}
-
 		
+		httpRequest.addParam(name="grant_type",value="password");
 		
-		initParams = { 
-		    @WebInitParam(name = "clientId", value = 
-		            "3MVG9lKcPoNINVBJSoQsNCD.HHDdbugPsNXwwyFbgb47KWa_PTv"),
-		    @WebInitParam(name = "clientSecret", value = "5678471853609579508"),
-		    @WebInitParam(name = "redirectUri", value = 
-		            "https://localhost:8443/RestTest/oauth/_callback"),
-		    @WebInitParam(name = "environment", value = 
-		            "https://***yourInstance***.salesforce.com/services/oauth2/token")  }
-		 
-		HttpClient httpclient = new HttpClient();
-		PostMethod post = new PostMethod(environment);
-		post.addParameter("code",code);
-		post.addParameter("grant_type","authorization_code");
+		httpRequest.addParam(name="username",value=setting('IntegrationSalesforceusername'));
+		httpRequest.addParam(name="password",value=setting('IntegrationSalesforcepassword')+setting('IntegrationSalesforcesecuritytoken'));
+		httpRequest.addParam(name="client_id",value=setting('IntegrationSalesforceclientid'));
+		httpRequest.addParam(name="client_secret",value=setting('IntegrationSalesforceclientsecret'));
 		
-		   /** For session ID instead of OAuth 2.0, use "grant_type", "password" **/
-		post.addParameter("client_id",clientId);
-		post.addParameter("client_secret",clientSecret);
-		post.addParameter("redirect_uri",redirectUri);
+		return deserializeJson(httpRequest.send().getPrefix().fileContent);
 	}
-	
 	
 	// =====================  END: Logical Methods ============================
 	

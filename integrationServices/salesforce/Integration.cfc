@@ -62,7 +62,12 @@ component accessors="true" output="false" implements="Slatwall.integrationServic
 
 	public struct function getSettings() {
 		var settings = {
-			organizationInstanceName = {fieldType="text"}
+			instanceId = {fieldType="text"},
+			userName = {fieldType="text"},
+			password = {fieldType="text"},
+			clientid = {fieldType="text"},
+			clientsecret= {fieldType="text"},
+			securitytoken={fieldType="text"}
 //			currency = {fieldType="text"},
 //			simulatorMode = {fieldType="yesno", defaultValue="1"},
 //			testMode = {fieldType="yesno", defaultValue="1"}
